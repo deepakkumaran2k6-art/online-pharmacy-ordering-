@@ -1,0 +1,79 @@
+erDiagram
+
+    USERS {
+        int user_id PK
+        string name
+        string email UK
+        string password_hash
+        string role
+        datetime created_at
+    }
+
+    CATEGORIES {
+        int category_id PK
+        string category_name
+        string description
+    }
+
+    MEDICINES {
+        int medicine_id PK
+        int category_id FK
+        string medicine_name
+        string description
+        decimal price
+        int stock_quantity
+        boolean prescription_required
+        datetime created_at
+    }
+
+    ORDERS {
+        int order_id PK
+        int user_id FK
+        decimal total_amount
+        string order_status
+        string delivery_address
+        datetime order_date
+    }
+
+    ORDER_ITEMS {
+        int order_item_id PK
+        int order_id FK
+        int medicine_id FK
+        int quantity
+        decimal unit_price
+        decimal subtotal
+    }
+
+    PRESCRIPTIONS {
+        int prescription_id PK
+        int user_id FK
+        int order_id FK
+        string file_path
+        string verification_status
+        datetime uploaded_at
+    }
+
+    DELIVERY_TRACKING {
+        int tracking_id PK
+        int order_id FK
+        string delivery_status
+        string tracking_number
+        datetime updated_at
+    }
+
+
+    %% Relationships
+
+    USERS ||--o{ ORDERS : places
+
+    CATEGORIES ||--o{ MEDICINES : contains
+
+    ORDERS ||--|{ ORDER_ITEMS : contains
+
+    MEDICINES ||--o{ ORDER_ITEMS : included_in
+
+    USERS ||--o{ PRESCRIPTIONS : uploads
+
+    ORDERS ||--o| PRESCRIPTIONS : uses
+
+    ORDERS ||--o| DELIVERY_TRACKING : has

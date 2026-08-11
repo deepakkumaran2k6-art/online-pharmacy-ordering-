@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "mysql+pymysql://root:rsmmsr@localhost:3306/online_pharmacy"
+DATABASE_URL = "mysql+pymysql://pharmacy_app:Pharmacy123@localhost/online_pharmacy"
 
 engine = create_engine(
     DATABASE_URL,
@@ -23,10 +23,3 @@ def get_db():
         yield db
     finally:
         db.close()
-if __name__ == "__main__":
-    try:
-        with engine.connect() as connection:
-            print("✅ MySQL connection successful!")
-    except Exception as e:
-        print("❌ MySQL connection failed!")
-        print(e)

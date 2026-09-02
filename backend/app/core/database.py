@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "mysql+pymysql://pharmacy_app:Pharmacy123@localhost/online_pharmacy"
+DATABASE_URL = "mysql+pymysql://pharmacy_app:qazwsx@localhost:3306/online_pharmacy"
 
 engine = create_engine(
     DATABASE_URL,
@@ -15,7 +15,6 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
-
 
 def get_db():
     db = SessionLocal()

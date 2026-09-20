@@ -4,3 +4,6 @@ sqlalchemy
 pymysql
 pytest
 python-multipart
+python-jose
+passlib[bcrypt]
+email-validator

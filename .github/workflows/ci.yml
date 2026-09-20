@@ -25,8 +25,15 @@ jobs:
         working-directory: backend
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-cov
+          python -m pip install -r requirements.txt
+          python -m pip install pytest pytest-cov
+
+      - name: Verify dependencies
+        working-directory: backend
+        run: |
+          python -c "import jose; print('python-jose: OK')"
+          python -c "import email_validator; print('email-validator: OK')"
+          python -c "import passlib; print('passlib: OK')"
 
       - name: Run tests
         working-directory: backend

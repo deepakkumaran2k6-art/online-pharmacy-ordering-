@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.models.medicine import Medicine
+from app.api.auth import require_admin
 
 
 router = APIRouter(
@@ -19,7 +20,8 @@ def create_medicine(
     price: float,
     stock_quantity: int,
     prescription_required: bool,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    admin=Depends(require_admin)
 ):
     medicine = Medicine(
         category_id=category_id,

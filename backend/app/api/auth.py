@@ -92,9 +92,10 @@ def login(
         "token_type": "bearer"
     }
 
+
 @router.get("/me")
 def get_current_user(
-    credentials = Depends(security)
+    credentials=Depends(security)
 ):
     payload = verify_access_token(credentials)
 
@@ -104,3 +105,29 @@ def get_current_user(
         "email": payload.get("email"),
         "role": payload.get("role")
     }
+
+
+def get_current_user_payload(
+    credentials=Depends(security)
+):
+    payload = verify_access_token(credentials)
+
+    if not payload:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or expired token"
+        )
+
+    return payload
+
+
+def require_admin(
+    payload=Depends(get_current_user_payload)
+):
+    if payload.get("role") != "admin":
+        raise HTTPException(
+            status_code=403,
+            detail="Admin access required"
+        )
+
+    return payload

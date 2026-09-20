@@ -3,3 +3,4 @@ uvicorn
 sqlalchemy
 pymysql
 pytest
+python-multipart
